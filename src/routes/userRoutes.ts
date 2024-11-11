@@ -1,6 +1,9 @@
 import { Application, Router } from 'express'
 
 import api from '../controllers/api'
+
+import bearer from '../middlewares/bearer'
+
 import { ErrorRes } from '../utils/response'
 
 const userRouter = Router()
@@ -9,6 +12,8 @@ userRouter.get('/:uid', api.getUser)
 userRouter.put('/:uid', api.updateUser)
 
 function route (app: Application) {
+  app.use(bearer)
+
   // User
   app.use('/user', userRouter)
 
